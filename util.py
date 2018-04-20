@@ -21,10 +21,7 @@ def verify(board):
 
 	goal = [1,2,3,4,5,6,7,8,0]
 	
-	print goal
-
 	if(board == goal):
-
 		return 1
 
 	return -1

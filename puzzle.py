@@ -9,6 +9,8 @@ from util import *
 # Slide Puzzle
 #===============================
 
+movements = 0
+
 class Puzzle:
 
 	#------------------------------
@@ -17,8 +19,9 @@ class Puzzle:
 
 	def __init__(self, list):
 
-		#self.board = [1,2,3,4,5,6,7,8,0]
-		self.board = list
+		self.board = []
+		for x in list:
+			self.board.append(int(x))
 
 	# ------------------------------------------
 	# Generate board
@@ -37,7 +40,7 @@ class Puzzle:
 
 		print actual_board
 		print_board(actual_board)
-		#print "SEARCHING FOR THE BEST ACTION"
+		print "\n\nSEARCHING FOR THE BEST ACTION"
 
 		return verify(actual_board)
 
@@ -65,6 +68,7 @@ if __name__ == "__main__":
 	print "\nWelcome to AI-SLIDE PUZZLE\n"
 
 	while game.update() < 0:
+		++movements
 		print "-----------------------"
 
-	print "THE GAME IS COMPLETE!!"
+	print "THE GAME IS COMPLETE!! (%d MOVEMENTS DONE)" % movements
