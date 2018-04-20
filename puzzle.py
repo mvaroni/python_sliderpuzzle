@@ -3,7 +3,7 @@
 import os, sys, inspect
 import threading
 from util import *
-#from ai_player import *
+from board import *
 
 #===============================
 # Slide Puzzle
