@@ -2,7 +2,7 @@
 # Print board
 # ------------------------------------------
 
-def print_board(board):
+def print_board(gameboard):
 
     # .format() -> format string using the board numbers
     # .replace() -> format string changing '0' into a blank space
@@ -15,13 +15,13 @@ def print_board(board):
   |-----------|
   | {b[6]} | {b[7]} | {b[8]} |
    -----------
-""".format(b=board).replace('0', ' ')
+""".format(b=gameboard.number_list).replace('0', ' ')
 
-def verify(board):
+def verify(gameboard):
 
-	goal = [1,2,3,4,5,6,7,8,0]
-	
-	if(board == goal):
-		return 1
+    goal = ["1","2","3","4","5","6","7","8","0"]
 
-	return -1
+    if(gameboard.number_list == goal):
+        return 1
+
+    return -1

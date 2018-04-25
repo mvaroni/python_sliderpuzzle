@@ -19,9 +19,8 @@ class Puzzle:
 
 	def __init__(self, list):
 
-		self.board = []
-		for x in list:
-			self.board.append(int(x))
+		self.gameboard = Board(list)
+		#self.gameboard.print_this_board()
 
 	# ------------------------------------------
 	# Generate board
@@ -36,9 +35,8 @@ class Puzzle:
 
 	def update(self):
 
-		actual_board = self.board
+		actual_board = self.gameboard
 
-		print actual_board
 		print_board(actual_board)
 		print "\n\nSEARCHING FOR THE BEST ACTION"
 
