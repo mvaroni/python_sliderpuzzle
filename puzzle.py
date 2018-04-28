@@ -20,15 +20,7 @@ class Puzzle:
 	def __init__(self, list):
 
 		self.gameboard = Board(list)
-		#self.gameboard.print_this_board()
 
-	# ------------------------------------------
-	# Generate board
-	# ------------------------------------------
-
-	#def generate_board(self):
-
-		#self.board[9]
 	# ------------------------------------------
 	# Update
 	# ------------------------------------------
@@ -37,10 +29,13 @@ class Puzzle:
 
 		actual_board = self.gameboard
 
-		print_board(actual_board)
-		print "\n\nSEARCHING FOR THE BEST ACTION"
+		isgamecomplete = actual_board.verify()
 
-		return verify(actual_board)
+		while isgamecomplete < 0:
+			print_board(actual_board)
+			print "\nSEARCHING FOR THE BEST ACTION"
+
+			actual_board.heu()
 
 
 # ==========================================
@@ -56,7 +51,7 @@ if __name__ == "__main__":
 
 	args = parser.parse_args()
 
-	# Create game with chosen players
+	# Create game with board passed
 	game = Puzzle(args.list)
 
 	# Clear the CMD window
@@ -69,4 +64,5 @@ if __name__ == "__main__":
 		++movements
 		print "-----------------------"
 
-	print "THE GAME IS COMPLETE!! (%d MOVEMENTS DONE)" % movements
+	# Print end game message and total number of movements
+	print "\nTHE GAME IS COMPLETE!! (%d MOVEMENTS DONE)\n" % movements

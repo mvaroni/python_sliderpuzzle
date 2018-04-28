@@ -1,5 +1,5 @@
 # ------------------------------------------
-# Print board
+# Print board on CMD
 # ------------------------------------------
 
 def print_board(gameboard):
@@ -16,12 +16,3 @@ def print_board(gameboard):
   | {b[6]} | {b[7]} | {b[8]} |
    -----------
 """.format(b=gameboard.number_list).replace('0', ' ')
-
-def verify(gameboard):
-
-    goal = ["1","2","3","4","5","6","7","8","0"]
-
-    if(gameboard.number_list == goal):
-        return 1
-
-    return -1
