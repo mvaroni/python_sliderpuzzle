@@ -2,7 +2,7 @@
 # Print board on CMD
 # ------------------------------------------
 
-def print_board(gameboard):
+def print_board(gameboard, debug):
 
     # .format() -> format string using the board numbers
     # .replace() -> format string changing '0' into a blank space

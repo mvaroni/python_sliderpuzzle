@@ -17,9 +17,10 @@ class Puzzle:
 	# Initialize
 	#------------------------------
 
-	def __init__(self, list):
+	def __init__(self, list, quiet):
 
 		self.gameboard = Board(list)
+		self.debug = quiet
 
 	# ------------------------------------------
 	# Update
@@ -29,13 +30,17 @@ class Puzzle:
 
 		actual_board = self.gameboard
 
-		isgamecomplete = actual_board.verify()
+		print_board(actual_board, self.debug)
 
-		while isgamecomplete < 0:
-			print_board(actual_board)
+		wrongcells = actual_board.heu()
+
+		while wrongcells > 0:
+			if(not self.debug):
+				#os.system('cls')
+				print_board(actual_board, self.debug)
 			print "\nSEARCHING FOR THE BEST ACTION"
 
-			actual_board.heu()
+		return wrongcells
 
 
 # ==========================================
@@ -48,11 +53,12 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description="Execute slide puzzle.")
 	parser.add_argument('-l','--list', nargs='+', help='Integers of the board', required=True)
+	parser.add_argument('-q','--quiet', nargs='?', help='Debuger', const=True, default=False)
 
 	args = parser.parse_args()
 
 	# Create game with board passed
-	game = Puzzle(args.list)
+	game = Puzzle(args.list, args.quiet)
 
 	# Clear the CMD window
 	os.system('cls')
@@ -60,7 +66,7 @@ if __name__ == "__main__":
 	# Print welcome
 	print "\nWelcome to AI-SLIDE PUZZLE\n"
 
-	while game.update() < 0:
+	while game.update() < 1:
 		++movements
 		print "-----------------------"
 
