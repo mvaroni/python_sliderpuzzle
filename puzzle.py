@@ -32,15 +32,18 @@ class Puzzle:
 
 		print_board(actual_board, self.debug)
 
-		wrongcells = actual_board.heu()
+		heuristic_value = actual_board.heu()
 
-		while wrongcells > 0:
+		while heuristic_value > 0:
+			
+			actual_board.next_move(heuristic_value)
+
 			if(not self.debug):
 				#os.system('cls')
 				print_board(actual_board, self.debug)
 			print "\nSEARCHING FOR THE BEST ACTION"
 
-		return wrongcells
+		return heuristic_value
 
 
 # ==========================================

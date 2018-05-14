@@ -61,23 +61,30 @@ class Board:
 		# D E F
 		# G H I
 
-	# -------------------------------------------
-	# Verify if gameboard cells are equal to goal
-	# -------------------------------------------
-
-	"""def verify(self):
-
-		if(self.number_list == self.goal):
-			return 1
-
-		return -1"""
-
 	#------------------------------
 	# Next move
 	#------------------------------
 	
-#	def next_move(self):
+	def next_move(self, heu_value):
 
+		next_board = Board(self.number_list)
+		neighbors = [None] * 1
+
+		# Finds all the neighbors of the cell with '0' (empty cell of the puzzle)
+		for (empty, neigbr), value in self.cells_dist.iteritems():
+			if value == 1 and self.cells[empty] == "0":
+				neighbors.insert(len(neighbors), neigbr)
+
+		# Gets the min(heu_value) of actual neighbors after change
+		new_list = next_board.change_cells(neighbors.pop(), next_board.cells)
+		next_board.cells = new_list
+		print "TESTE: ----------------------------- %s" % (next_board.cells)
+
+		print_board(next_board, True)
+		# Não ta printando certo pq o print_board() usa o number_list, não o dict cells..........
+
+		next_heu_value = next_board.heu()
+		print "NEXT HEU VALUE: %s" % (next_heu_value)
 
 	#------------------------------
 	# Heuristic function
@@ -88,7 +95,7 @@ class Board:
 		heu_value = 0
 
 		for cell, value in self.cells.iteritems():
-			print "CELL: %s \nVALUE: %s" % (cell, value)
+			#print "CELL: %s \nVALUE: %s" % (cell, value)
 			if self.goal[cell] != value:
 				heu_value = heu_value + self.dist(cell)
 
@@ -101,6 +108,22 @@ class Board:
 	def dist(self, cell):
 
 		for (origin, destiny), value in self.cells_dist.iteritems():
-			if destiny == cell:
-				print "DIST: %s" % (self.cells_dist[(origin,destiny)])
-				return self.cells_dist[(origin,destiny)]
+			if origin == cell:
+				if self.goal[destiny] == self.cells[cell]:
+					# This print shows the cells origin and destiny, as it's distance from each other
+					#print "DIST: %s ---- ORIGIN: %s // DESTINY: %s" % (self.cells_dist[(origin,destiny)], origin, destiny)
+					return self.cells_dist[(origin,destiny)]
+
+	#------------------------------
+	# Changes two cell's value
+	#------------------------------
+
+	def change_cells(self, cell, list_of_cells):
+
+		for k, v in list_of_cells.iteritems():
+			if v == "0":
+				list_of_cells[k] = list_of_cells[cell]
+				list_of_cells[cell] = "0"
+				break
+
+		return list_of_cells
