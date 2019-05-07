@@ -75,13 +75,17 @@ class Board:
 			if value == 1 and self.cells[empty] == "0":
 				neighbors.insert(len(neighbors), neigbr)
 
+		neig_popped = neighbors.pop()
+		#ta dando POP no F primeiro e depois ta fazendo a troca, ai isso entra no heu_value
+		print "POPPED -------> %s" % (neig_popped)
+		
 		# Gets the min(heu_value) of actual neighbors after change
-		new_list = next_board.change_cells(neighbors.pop(), next_board.cells)
+		new_list = next_board.change_cells(neig_popped, next_board.cells)
 		next_board.cells = new_list
 		print "TESTE: ----------------------------- %s" % (next_board.cells)
 
 		print_board(next_board, True)
-		# Não ta printando certo pq o print_board() usa o number_list, não o dict cells..........
+		# Nao ta printando certo pq o print_board() usa o number_list, nao o dict cells..........
 
 		next_heu_value = next_board.heu()
 		print "NEXT HEU VALUE: %s" % (next_heu_value)
@@ -112,6 +116,7 @@ class Board:
 				if self.goal[destiny] == self.cells[cell]:
 					# This print shows the cells origin and destiny, as it's distance from each other
 					#print "DIST: %s ---- ORIGIN: %s // DESTINY: %s" % (self.cells_dist[(origin,destiny)], origin, destiny)
+					#print "GOAL? %s --CELL? %s" % (self.goal[destiny], self.cells[cell])
 					return self.cells_dist[(origin,destiny)]
 
 	#------------------------------
