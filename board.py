@@ -74,15 +74,18 @@ class Board:
 		for (empty, neigbr), value in self.cells_dist.iteritems():
 			if value == 1 and self.cells[empty] == "0":
 				neighbors.insert(len(neighbors), neigbr)
+				empty_cell = empty
 
 		neig_popped = neighbors.pop()
 		#ta dando POP no F primeiro e depois ta fazendo a troca, ai isso entra no heu_value
 		print "POPPED -------> %s" % (neig_popped)
 		
 		# Gets the min(heu_value) of actual neighbors after change
-		new_list = next_board.change_cells(neig_popped, next_board.cells)
+		#new_list = next_board.change_cells(neig_popped, next_board.cells)
+		new_list = next_board.change_those_cells(neig_popped, empty_cell, next_board.cells, next_board.number_list)
+		
 		next_board.cells = new_list
-		print "TESTE: ----------------------------- %s" % (next_board.cells)
+		print "NEXT BOARD IS: \n %s" % (next_board.cells)
 
 		print_board(next_board, True)
 		# Nao ta printando certo pq o print_board() usa o number_list, nao o dict cells..........
@@ -120,7 +123,7 @@ class Board:
 					return self.cells_dist[(origin,destiny)]
 
 	#------------------------------
-	# Changes two cell's value
+	# Changes two cell's value, but it's always the first neighbor of "0"
 	#------------------------------
 
 	def change_cells(self, cell, list_of_cells):
@@ -132,3 +135,19 @@ class Board:
 				break
 
 		return list_of_cells
+
+	#------------------------------
+	# Changes two cell's value
+	#------------------------------
+
+	def change_those_cells(self, cell, empty_cell, list_of_cells, list_of_numbers):
+
+		for k, v in list_of_cells.iteritems():
+			if v == "0":
+				list_of_numbers[k] = list_of_numbers[cell] #achar como fazer isso com o indice certo
+				list_of_numbers[cell] = "0"
+
+				list_of_cells[empty_cell] = list_of_cells[cell]
+				list_of_cells[cell] = "0"
+
+		return list_of_cells		

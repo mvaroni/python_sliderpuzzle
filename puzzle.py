@@ -43,6 +43,8 @@ class Puzzle:
 				print_board(actual_board, self.debug)
 			print "\nSEARCHING FOR THE BEST ACTION"
 
+			break
+
 		return heuristic_value
 
 
